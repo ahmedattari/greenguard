@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0">
+    <category>
+        <pattern>WHAT IS THE TEMPERATURE RIGHT NOW</pattern>
+        <template>
+            The temperature right now is <get name="temperature"/>C.
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS THE HUMIDITY RIGHT NOW</pattern>
+        <template>
+            The humidity right now is <get name="humidity"/>%.
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS THE AIR QUALITY</pattern>
+        <template>
+            The air quality is <get name="air_quality"/>.
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS THE SOIL MOISTURE LEVEL</pattern>
+        <template>
+            The soil moisture level is <get name="moisture"/>%.
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS THE CONCENTRATION OF CARBON DIOXIDE RIGHT NOW</pattern>
+        <template>
+            The concentration of Carbon Dioxide right now is <get name="carbon_dioxide_quality"/>.
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS THE CONCENTRATION OF CARBON MONOXIDE RIGHT NOW</pattern>
+        <template>
+            The concentration of Carbon Monoxide right now is <get name="carbon_monoxide_quality"/>.
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS THE CONCENTRATION OF AMMONIA RIGHT NOW</pattern>
+        <template>
+            The concentration of Ammonia right now is <get name="ammonia_quality"/>.
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS THE CONCENTRATION OF NITROGEN DIOXIDE RIGHT NOW</pattern>
+        <template>
+            The concentration of Nitrogen Dioxide right now is <get name="nitrogen_dioxide_quality"/>.
+        </template>
+    </category>
+</aiml>

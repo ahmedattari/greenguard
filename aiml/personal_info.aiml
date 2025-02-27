@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0">
+
+    <!-- Category to set user's name -->
+    <category>
+        <pattern>MY NAME IS *</pattern>
+        <template>
+            <think><set name="username"><star/></set></think>
+            Nice to meet you, <star/>!
+        </template>
+    </category>
+
+    <!-- Category to retrieve user's name -->
+    <category>
+        <pattern>WHAT IS MY NAME</pattern>
+        <template>
+            Your name is <get name="username"/>!
+        </template>
+    </category>
+    
+    <!-- Category to set user's age -->
+    <category>
+        <pattern>I AM * YEARS OLD</pattern>
+        <template>
+            <set name="age"><star/></set>
+            Got it! You are <star/> years old.
+        </template>
+    </category>
+
+    <!-- Category to retrieve user's age -->
+    <category>
+        <pattern>WHAT IS MY AGE</pattern>
+        <template>
+            You are <get name="age"/> years old.
+        </template>
+    </category>
+    
+    <!-- Category to set user's favorite color -->
+    <category>
+        <pattern>MY FAVORITE COLOR IS *</pattern>
+        <template>
+            <set name="favoritecolor"><star/></set>
+            Cool! Your favorite color is <star/>.
+        </template>
+    </category>
+
+    <!-- Category to retrieve user's favorite color -->
+    <category>
+        <pattern>WHAT IS MY FAVORITE COLOR</pattern>
+        <template>
+            Your favorite color is <get name="favoritecolor"/>.
+        </template>
+    </category>
+    
+    <!-- Category to set user's hobby -->
+    <category>
+        <pattern>MY HOBBY IS *</pattern>
+        <template>
+            <set name="hobby"><star/></set>
+            That's interesting! Your hobby is <star/>.
+        </template>
+    </category>
+
+    <!-- Category to retrieve user's hobby -->
+    <category>
+        <pattern>WHAT IS MY HOBBY</pattern>
+        <template>
+            Your hobby is <get name="hobby"/>.
+        </template>
+    </category>
+    
+    <!-- Category to set user's favorite food -->
+    <category>
+        <pattern>MY FAVORITE FOOD IS *</pattern>
+        <template>
+            <set name="favoritefood"><star/></set>
+            Yum! Your favorite food is <star/>.
+        </template>
+    </category>
+
+    <!-- Category to retrieve user's favorite food -->
+    <category>
+        <pattern>WHAT IS MY FAVORITE FOOD</pattern>
+        <template>
+            Your favorite food is <get name="favoritefood"/>.
+        </template>
+    </category>
+    
+    <!-- Category to set user's pet's name -->
+    <category>
+        <pattern>MY PET'S NAME IS *</pattern>
+        <template>
+            <set name="petname"><star/></set>
+            That's a lovely name! Your pet's name is <star/>.
+        </template>
+    </category>
+
+    <!-- Category to retrieve user's pet's name -->
+    <category>
+        <pattern>WHAT IS MY PET'S NAME</pattern>
+        <template>
+            Your pet's name is <get name="petname"/>.
+        </template>
+    </category>
+
+</aiml>

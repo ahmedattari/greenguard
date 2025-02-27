@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0">
+
+   <category>
+      <pattern>Bubye</pattern>
+      <template>
+        Bye, Take care!
+      </template>
+   </category>
+
+
+    <category>
+      <pattern>* IS MY *</pattern>
+      <template>
+         <think><set name="person"><star index="1"/></set></think>
+         <think><set name="relation"><star index="2"/></set></think>
+         Okay, I got it!
+      </template>
+   </category>
+
+   <category>
+      <pattern>* IS * OF *</pattern>
+      <template>
+         <think><set name="person1"><star index="1"/></set></think>
+         <think><set name="relation"><star index="2"/></set></think>
+         <think><set name="person2"><star index="3"/></set></think>
+         Okay, I got it!
+      </template>
+   </category>
+
+
+   <category>
+      <pattern>WHO IS MY *</pattern>
+      <template>
+         <think><set name="myrel"><star/></set></think>
+         Your <get name="myrel"/> is/are, <get name="friend"/>.
+      </template>
+   </category>
+</aiml>
