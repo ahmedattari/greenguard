@@ -42,6 +42,8 @@ Each user has a **personalized memory**:
 | Frontend (Chat UI)| HTML, CSS, JavaScript               |
 | Sensors           | ESP32, MQ135, DHT11, Soil Moisture  |
 | Voice Features    | Web Speech API / Text-to-Speech     |
-| NLP/Chatbot       | AIML or custom NLP logic             |
+| NLP/Chatbot       | AIML and custom NLP logic             |
 
 ---
+
+Project Video: https://drive.google.com/file/d/15jpgOyV2Oc7GgExZ_no8PrVXxOuCgfhX/view?usp=drive_link
