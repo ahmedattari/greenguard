@@ -6,51 +6,34 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify, s
 from py2neo import Graph, Node, Relationship
 
 def get_sensor_data():
-    url = "http://172.20.10.2/sensors"
+    url = "http://192.168.0.121/sensors"  # ✅ Your ESP32 IP
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=5)
         response.raise_for_status()
         return response.json()
     except requests.RequestException as e:
-        print(f"Error requesting sensor data: {e}")
+        print(f"❌ Error requesting sensor data: {e}")
         return None
 
 def update_aiml_variables(kernel, sensor_data):
     if sensor_data:
         kernel.setPredicate("temperature", str(sensor_data['temperature']), "USER_1")
         kernel.setPredicate("humidity", str(sensor_data['humidity']), "USER_1")
-        kernel.setPredicate("air_quality", sensor_data['air_quality'], "USER_1")
-        kernel.setPredicate("moisture", str(sensor_data['moisture']), "USER_1")
-        for gas in ["Carbon Dioxide", "Carbon Monoxide", "Ammonia", "Nitrogen Dioxide"]:
-            quality = sensor_data['gas_concentrations'][gas][0]
-            kernel.setPredicate(gas.lower().replace(" ", "_") + "_quality", quality, "USER_1")
+        kernel.setPredicate("soil_moisture", str(sensor_data['soil_moisture']), "USER_1")
+        kernel.setPredicate("air_quality", str(sensor_data['air_quality']), "USER_1")
 
 def update_sensor_nodes(sensor_data):
     if sensor_data:
         dht11_node = graph.nodes.match("sensor", name='DHT11', user_id=current_user_id).first()
-        mq135_node = graph.nodes.match("sensor", name='MQ135', user_id=current_user_id).first()
-        moisture_node = graph.nodes.match("sensor", name='Moisture', user_id=current_user_id).first()
-
         if dht11_node:
             dht11_node['Temperature'] = str(sensor_data['temperature'])
             dht11_node['Humidity'] = str(sensor_data['humidity'])
+            dht11_node['Soil_Moisture'] = str(sensor_data['soil_moisture'])
+            dht11_node['Air_Quality'] = str(sensor_data['air_quality'])
             graph.push(dht11_node)
-
-        if mq135_node:
-            mq135_node['Air_Quality'] = sensor_data['air_quality']
-            for gas in ["Carbon Dioxide", "Carbon Monoxide", "Ammonia", "Nitrogen Dioxide"]:
-                quality = sensor_data['gas_concentrations'][gas][0]
-                mq135_node[gas.replace(" ", "_")] = quality
-            graph.push(mq135_node)
-
-        if moisture_node:
-            moisture_node['Moisture_Level'] = str(sensor_data['moisture'])
-            graph.push(moisture_node)
 
 # Initialize AIML kernel
 k = Kernel()
-
-# Learn all AIML files
 aiml_files = glob('aiml/*.aiml')
 for file_path in aiml_files:
     k.learn(file_path)
@@ -63,68 +46,19 @@ app.secret_key = 'naming'
 current_user_id = None
 current_episode_id = None
 
-def reset_variable():
-    keys = ["relation", "myrel", "person", "person1", "person2", "friend"]
-    for key in keys:
-        k.setPredicate(key, "", "USER_1")
-
-def get_variables():
-    My_Dict = {key: k.getPredicate(key, "USER_1") for key in ["relation", "myrel", "person", "person1", "person2", "friend"]}
-    create_nodes_relations(My_Dict)
-
-def create_nodes_relations(My_Dict):
-    social_node = graph.nodes.match("Social", user_id=current_user_id).first()
-    non_empty_keys = [key for key, value in My_Dict.items() if value]
-
-    if not social_node:
-        print("Social node not found.")
-        return
-
-    if "relation" in non_empty_keys and "person" in non_empty_keys:
-        relation = My_Dict["relation"]
-        person = My_Dict["person"]
-        person_node = Node('Person', name=person)
-        graph.merge(person_node, 'Person', "name")
-        graph.merge(Relationship(social_node, relation, person_node))
-        reset_variable()
-
-    elif "person1" in non_empty_keys and "relation" in non_empty_keys and "person2" in non_empty_keys:
-        person1 = My_Dict["person1"]
-        relation = My_Dict["relation"]
-        person2 = My_Dict["person2"]
-        parent_node = Node("Person", name=person1)
-        child_node = Node("Person", name=person2)
-        graph.merge(parent_node, "Person", "name")
-        graph.merge(child_node, "Person", "name")
-        graph.merge(Relationship(parent_node, relation, child_node))
-        reset_variable()
-
-    elif "myrel" in non_empty_keys:
-        myrel = My_Dict["myrel"]
-        query = f"""
-        MATCH (social:Social {{user_id: {current_user_id}}})-[:{myrel}]->(person:Person)
-        RETURN person
-        """
-        result = graph.run(query)
-        names = [record["person"]["name"] for record in result]
-        k.setPredicate("friend", ", ".join(names), "USER_1")
-
-# --- Frontend routes ---
-
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/auth')
-def auth_page():
-    return render_template('auth.html')
+@app.route('/splash')
+def splash():
+    user_name = session.get('user_name', 'User')
+    return render_template('splash.html', user_name=user_name)
 
 @app.route('/chat')
 def chat():
     user_name = session.get('user_name', 'User')
     return render_template('chat.html', user_name=user_name)
-
-# --- Signup logic ---
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -148,18 +82,13 @@ def signup():
         episode_node = Node("Episode", name="episode1", user_id=user_node.identity)
         social_node = Node("Social", name="Social", user_id=user_node.identity)
 
-        dht11_node = Node("sensor", name="DHT11", user_id=user_node.identity, Temperature="0", Humidity="0")
-        mq135_node = Node("sensor", name="MQ135", user_id=user_node.identity, Air_Quality="0", Carbon_Dioxide="0", Carbon_Monoxide="0", Ammonia="0", Nitrogen_Dioxide="0")
-        moisture_node = Node("sensor", name="Moisture", user_id=user_node.identity, Moisture_Level="0")
-        
+        dht11_node = Node("sensor", name="DHT11", user_id=user_node.identity, Temperature="0", Humidity="0", Soil_Moisture="0", Air_Quality="0")
         graph.create(episodic_node)
         graph.create(sensory_node)
         graph.create(semantic_node)
         graph.create(episode_node)
         graph.create(social_node)
         graph.create(dht11_node)
-        graph.create(mq135_node)
-        graph.create(moisture_node)
 
         graph.create(Relationship(user_node, "HAS", episodic_node))
         graph.create(Relationship(user_node, "HAS", sensory_node))
@@ -167,17 +96,13 @@ def signup():
         graph.create(Relationship(user_node, "HAS", social_node))
         graph.create(Relationship(episodic_node, "STARTS", episode_node))
         graph.create(Relationship(sensory_node, "CONTAINS", dht11_node))
-        graph.create(Relationship(sensory_node, "CONTAINS", mq135_node))
-        graph.create(Relationship(sensory_node, "CONTAINS", moisture_node))
         
         global current_user_id, current_episode_id
         current_user_id = user_node.identity
         current_episode_id = episode_node.identity
 
         session['user_name'] = name
-        return redirect(url_for('chat'))
-
-# --- Signin logic ---
+        return redirect(url_for('splash'))
 
 @app.route('/signin', methods=['POST'])
 def signin():
@@ -202,32 +127,54 @@ def signin():
         graph.create(Relationship(episodic_node, "STARTS", new_episode_node))
         
         session['user_name'] = name
-        return redirect(url_for('chat'))
+        return redirect(url_for('splash'))
     else:
         return "Don't Have an account! Register yourself first"
 
-# --- AIML Chat route ---
-
 @app.route('/get_response', methods=['POST'])
 def get_response():
-    k.respond("Hi", "USER_1")
-    user_input = request.json.get("message")
-    sensor_data = get_sensor_data()
-    if sensor_data:
-        update_aiml_variables(k, sensor_data)
-        update_sensor_nodes(sensor_data)
-    response = k.respond(user_input, "USER_1")
-    get_variables()
+    user_input = request.json.get("message").lower()
 
-    episode_node = graph.nodes.get(current_episode_id)
-    chats = json.loads(episode_node.get('chats', '{}'))
-    prompt_count = len(chats)
-    new_prompt = f"prompt{prompt_count + 1}"
-    chats[new_prompt] = {"user": user_input, "bot": response}
-    episode_node['chats'] = json.dumps(chats)
-    graph.push(episode_node)
+    keywords = ["sensor", "temperature", "humidity", "soil", "moisture", "air", "gas", "reading"]
+    if any(word in user_input for word in keywords):
+        sensor_data = get_sensor_data()
+        if sensor_data:
+            update_aiml_variables(k, sensor_data)
+            update_sensor_nodes(sensor_data)
+
+            # Individual checks
+            if "temperature" in user_input:
+                response = f"🌡 Temperature: {sensor_data['temperature']}°C"
+            elif "humidity" in user_input:
+                response = f"💧 Humidity: {sensor_data['humidity']}%"
+            elif "soil" in user_input or "moisture" in user_input:
+                response = f"🌱 Soil moisture: {sensor_data['soil_moisture']}"
+            elif "air" in user_input or "gas" in user_input:
+                response = f"🌀 Air quality: {sensor_data['air_quality']}"
+            else:
+                # If general or combined request
+                response = (
+                    f"🌡 Temp: {sensor_data['temperature']}°C\n"
+                    f"💧 Humidity: {sensor_data['humidity']}%\n"
+                    f"🌱 Soil moisture: {sensor_data['soil_moisture']}\n"
+                    f"🌀 Air quality: {sensor_data['air_quality']}"
+                )
+        else:
+            response = "❌ Unable to read sensor data right now."
+    else:
+        response = k.respond(user_input, "USER_1")
+
+    if current_episode_id is not None:
+        episode_node = graph.nodes.get(current_episode_id)
+        chats = json.loads(episode_node.get('chats', '{}'))
+        prompt_count = len(chats)
+        new_prompt = f"prompt{prompt_count + 1}"
+        chats[new_prompt] = {"user": user_input, "bot": response}
+        episode_node['chats'] = json.dumps(chats)
+        graph.push(episode_node)
 
     return jsonify({"response": response})
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

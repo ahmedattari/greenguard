@@ -1,49 +1,36 @@
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f7f7f8;
+  background-color: #f2f2f7;
 }
 
 .chat-container {
   display: flex;
   height: 100vh;
-}
-
-.chat-left {
-  width: 25%;
-  background-color: #4caf50;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 20px;
-}
-
-.user-info {
-  text-align: center;
-}
-
-.video-container {
-  background-color: rgba(255, 255, 255, 0.1);
-  height: 180px;
-  border-radius: 8px;
-  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 .chat-right {
-  width: 75%;
+  width: 100%;
+  max-width: 700px;
+  height: 90vh;
+  background: #ffffff;
+  border-radius: 30px;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
 .bot-info {
-  background-color: #4caf50;
+  background-color: #34c759;
   color: white;
   text-align: center;
-  padding: 12px 0;
+  padding: 16px;
   font-weight: 600;
+  font-size: 18px;
 }
 
 .messages-container {
@@ -56,61 +43,73 @@ body {
 
 .message {
   max-width: 75%;
-  padding: 12px 16px;
-  border-radius: 12px;
+  padding: 14px 18px;
+  border-radius: 20px;
   margin-bottom: 12px;
   line-height: 1.4;
-  font-size: 14px;
+  font-size: 15px;
+  word-break: break-word;
 }
 
 .user-message {
-  background-color: #e6f4ea;
+  background-color: #e5ffe1;
   align-self: flex-end;
-  border: 1px solid #c8e6c9;
+  border: 1px solid #c7f1c0;
 }
 
 .bot-message {
-  background-color: #f1f1f1;
+  background-color: #f0f0f0;
   align-self: flex-start;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #ddd;
 }
 
 .input-container {
   display: flex;
   align-items: center;
-  padding: 16px;
+  padding: 14px;
   border-top: 1px solid #e0e0e0;
-  background-color: #fff;
+  background-color: #fafafa;
 }
 
 textarea {
   flex: 1;
   resize: none;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  font-size: 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 18px;
+  padding: 10px 16px;
+  font-size: 15px;
   margin-right: 10px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 textarea:focus {
-  outline: none;
-  border-color: #4caf50;
-  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.15);
+  border-color: #34c759;
+  box-shadow: 0 0 0 2px rgba(52, 199, 89, 0.2);
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .button-container button {
-  background-color: #4caf50;
+  background-color: #34c759;
   border: none;
-  border-radius: 8px;
+  border-radius: 50%;
   color: white;
-  padding: 10px 12px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .button-container button:hover {
-  background-color: #388e3c;
+  background-color: #28a745;
 }
 
 .button-container button i {
@@ -120,12 +119,12 @@ textarea:focus {
 .tts-button {
   background: none;
   border: none;
-  color: #4caf50;
+  color: #34c759;
   cursor: pointer;
   font-size: 16px;
-  margin-left: 8px;
+  margin-left: 6px;
 }
 
 .tts-button:hover {
-  color: #388e3c;
+  color: #28a745;
 }
