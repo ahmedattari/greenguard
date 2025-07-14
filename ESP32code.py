@@ -147,8 +147,8 @@ def handle_request(request):
         return f'HTTP/1.1 500 Internal Server Error\r\nContent-Type: application/json\r\n\r\n{{"status":"error", "message":"{str(e)}"}}'
 
 # Main function to set up the web server
-ssid = 'iphone'         # Replace with your Wi-Fi SSID
-password = 'haseeb12'  # Replace with your Wi-Fi password
+ssid = 'A54'         # Replace with your Wi-Fi SSID
+password = 'minahil123'  # Replace with your Wi-Fi password
 connect_wifi(ssid, password)
 
 addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]

@@ -1,6 +1,6 @@
-# 🤖🌱 Robo-Garden: AI-Powered Plant Monitoring System
+# 🤖🌱 Green-Guard: AI-Powered Plant Monitoring System
 
-Robo-Garden is a smart plant monitoring system that combines IoT sensors with AI chatbot capabilities to help users monitor and manage their garden effortlessly. It offers real-time data from sensors like soil moisture, air quality (MQ135), and temperature/humidity (DHT11), integrated with a conversational chatbot for intuitive interactions. With voice communication support and a Neo4j graph database for personalized memory storage, Robo-Garden brings futuristic garden care to your fingertips.
+Green-Guard is a smart plant monitoring system that combines IoT sensors with AI chatbot capabilities to help users monitor and manage their garden effortlessly. It offers real-time data from sensors like soil moisture, air quality (MQ135), and temperature/humidity (DHT11), integrated with a conversational chatbot for intuitive interactions. With voice communication support and a Neo4j graph database for personalized memory storage, Green-Guard brings futuristic garden care to your fingertips.
 
 ---
 
