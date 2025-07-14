@@ -1,27 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chat UI</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/chat_style.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat UI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
   <div class="chat-container">
-    <div class="chat-left">
-      <div class="user-info">
-        <div class="user-info">
-          <h2 id="user-name">{{ user_name }}</h2>
-        </div> 
-      </div>
-      <div class="video-container">
-        <!-- Video streaming container goes here -->
-      </div>
-    </div>
-    <div class="chat-right">
+    <div class="chat-right" style="width: 100%;">
       <div class="bot-info">
-        <h2>VOXBOT</h2>
+        <h2>Hello, {{ user_name }}!</h2>
       </div>
       <div class="messages-container">
         <!-- Messages from user and bot go here -->
@@ -35,7 +25,7 @@
       </div>
     </div>
   </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="{{ url_for('static', filename='js/chat_script.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{{ url_for('static', filename='js/chat_script.js') }}"></script>
 </body>
 </html>
