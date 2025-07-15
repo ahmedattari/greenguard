@@ -1,49 +1,66 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <aiml version="1.0">
+
+    <!-- Basic greetings -->
     <category>
         <pattern>HELLO</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
+        <template><srai>GREETINGS</srai></template>
     </category>
     
     <category>
         <pattern>HI</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
+        <template><srai>GREETINGS</srai></template>
     </category>
 
     <category>
         <pattern>HEY</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
+        <template><srai>GREETINGS</srai></template>
     </category>
 
     <category>
-        <pattern>GOOD MORNING</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
+        <pattern>HIYA</pattern>
+        <template><srai>GREETINGS</srai></template>
     </category>
 
     <category>
-        <pattern>GOOD AFTERNOON</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
+        <pattern>YO</pattern>
+        <template><srai>GREETINGS</srai></template>
+    </category>
+
+    <!-- With wildcard -->
+    <category>
+        <pattern>HELLO *</pattern>
+        <template><srai>GREETINGS</srai></template>
+    </category>
+    
+    <category>
+        <pattern>HI *</pattern>
+        <template><srai>GREETINGS</srai></template>
     </category>
 
     <category>
-        <pattern>GOOD EVENING</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
+        <pattern>HEY *</pattern>
+        <template><srai>GREETINGS</srai></template>
     </category>
 
     <category>
-        <pattern>GOOD NIGHT</pattern>
+        <pattern>GOOD MORNING *</pattern>
+        <template><srai>GREETINGS</srai></template>
+    </category>
+
+    <category>
+        <pattern>GOOD AFTERNOON *</pattern>
+        <template><srai>GREETINGS</srai></template>
+    </category>
+
+    <category>
+        <pattern>GOOD EVENING *</pattern>
+        <template><srai>GREETINGS</srai></template>
+    </category>
+
+    <!-- Other variations -->
+    <category>
+        <pattern>GOOD NIGHT *</pattern>
         <template>
             <random>
                 <li>Good night! Sweet dreams!</li>
@@ -54,19 +71,41 @@
     </category>
 
     <category>
-        <pattern>WHAT'S UP</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
+        <pattern>WHAT'S UP *</pattern>
+        <template><srai>GREETINGS</srai></template>
     </category>
 
     <category>
-        <pattern>HOWDY</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
+        <pattern>HOWDY *</pattern>
+        <template><srai>GREETINGS</srai></template>
     </category>
 
+    <category>
+        <pattern>GREET *</pattern>
+        <template><srai>GREETINGS</srai></template>
+    </category>
+
+    <category>
+        <pattern>HI THERE *</pattern>
+        <template><srai>GREETINGS</srai></template>
+    </category>
+
+    <category>
+        <pattern>HELLO THERE *</pattern>
+        <template><srai>GREETINGS</srai></template>
+    </category>
+
+    <category>
+        <pattern>HEY THERE *</pattern>
+        <template><srai>GREETINGS</srai></template>
+    </category>
+
+    <category>
+        <pattern>GOOD DAY *</pattern>
+        <template><srai>GREETINGS</srai></template>
+    </category>
+
+    <!-- Central greeting template -->
     <category>
         <pattern>GREETINGS</pattern>
         <template>
@@ -74,114 +113,78 @@
                 <li>Hello! How can I assist you today?</li>
                 <li>Hi there! What can I do for you?</li>
                 <li>Hey! How's it going?</li>
-                <li>Hey! Hope you have a great day ahead!</li>
-                <li>Hi! What can I help you with today?</li>
+                <li>Hi! Hope you're having a great day!</li>
                 <li>Hello! How was your day?</li>
+                <li>Greetings! What would you like to talk about?</li>
+            </random>
+        </template>
+    </category>
+
+    <!-- Follow-up context -->
+    <category>
+        <pattern>GOOD</pattern>
+        <that>*HOW ARE YOU*</that>
+        <template>I'm happy to hear that! How can I help you further?</template>
+    </category>
+
+    <category>
+        <pattern>HOW ARE YOU *</pattern>
+        <template>
+            <random>
+                <li>I'm just a bot, but I'm feeling awesome! How about you?</li>
+                <li>I'm great! Thanks for asking. How are you?</li>
+                <li>I'm always here to help you! How can I assist?</li>
             </random>
         </template>
     </category>
 
     <category>
-        <pattern>HI THERE</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
-    </category>
-
-    <category>
-        <pattern>HELLO THERE</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
-    </category>
-
-    <category>
-        <pattern>HEY THERE</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
-    </category>
-
-    <category>
-        <pattern>HIYA</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
-    </category>
-
-    <category>
-        <pattern>YO</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
-    </category>
-
-    <category>
-        <pattern>GOOD DAY</pattern>
-        <template>
-            <srai>GREETINGS</srai>
-        </template>
-    </category>
-
-    <category>
-        <pattern>HOW ARE YOU</pattern>
+        <pattern>HOW'S IT GOING *</pattern>
         <template>
             <random>
-                <li>I'm just a program, but I'm here to help you! How are you?</li>
-                <li>I'm doing great! How can I assist you today?</li>
-                <li>I'm fine, thank you! How about you?</li>
-            </random>
-        </template>
-    </category>
-
-    <category>
-        <pattern>HOW'S IT GOING</pattern>
-        <template>
-            <random>
-                <li>It's going well, thank you! How about you?</li>
-                <li>Everything is good here! What about you?</li>
-                <li>I'm doing fine! How are you?</li>
+                <li>It's going well, thank you! What about you?</li>
+                <li>All good here! How can I support you today?</li>
+                <li>Doing great! How are things on your side?</li>
             </random>
         </template>
     </category>
     
     <category>
-        <pattern>HOW HAVE YOU BEEN</pattern>
+        <pattern>HOW HAVE YOU BEEN *</pattern>
         <template>
             <random>
-                <li>I've been good! How have you been?</li>
-                <li>I've been great! What about you?</li>
-                <li>I've been well, thank you! And you?</li>
+                <li>I've been good! How about you?</li>
+                <li>Doing well! What can I do for you today?</li>
+                <li>Feeling great! Thanks for asking. What’s new with you?</li>
             </random>
         </template>
     </category>
 
     <category>
-        <pattern>LONG TIME NO SEE</pattern>
+        <pattern>LONG TIME NO SEE *</pattern>
         <template>
             <random>
-                <li>Indeed, it's been a while! How can I help you today?</li>
-                <li>Long time, no see! What's new with you?</li>
-                <li>It's been a while! What can I do for you?</li>
+                <li>Indeed! It’s great to see you again. How can I help?</li>
+                <li>Long time, no see! Tell me what you'd like to do today.</li>
+                <li>Welcome back! What can I assist you with?</li>
             </random>
         </template>
     </category>
 
     <category>
-        <pattern>ANY NEW UPDATES</pattern>
+        <pattern>ANY NEW UPDATES *</pattern>
         <template>
             <random>
-                <li>I'm always learning new things to assist you better. What would you like to know about?</li>
-                <li>Yes, I'm constantly updating to help you better. What do you need?</li>
-                <li>I'm updated regularly. What can I assist you with today?</li>
+                <li>I'm always learning new things! What would you like to know?</li>
+                <li>Yes! I'm constantly updated to assist you better. Ask me anything!</li>
+                <li>Absolutely! I'm here to help with the latest info. What do you need?</li>
             </random>
         </template>
     </category>
-    
+
     <category>
-        <pattern>START</pattern>
-        <template>
-            <srai>HELLO</srai>
-        </template>
+        <pattern>START *</pattern>
+        <template><srai>HELLO</srai></template>
     </category>
+
 </aiml>

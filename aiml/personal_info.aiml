@@ -1,105 +1,125 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <aiml version="1.0">
 
-    <!-- Category to set user's name -->
+    <!-- User name -->
     <category>
         <pattern>MY NAME IS *</pattern>
         <template>
             <think><set name="username"><star/></set></think>
-            Nice to meet you, <star/>!
+            <random>
+                <li>Nice to meet you, <star/>!</li>
+                <li>Great! I'll remember that your name is <star/>.</li>
+                <li>Awesome! Hello, <star/>!</li>
+            </random>
         </template>
     </category>
 
-    <!-- Category to retrieve user's name -->
     <category>
         <pattern>WHAT IS MY NAME</pattern>
         <template>
-            Your name is <get name="username"/>!
+            <condition name="username">
+                <li value="">I don't know your name yet. Please tell me: "My name is ..."</li>
+                <li>Your name is <get name="username"/>!</li>
+            </condition>
         </template>
     </category>
-    
-    <!-- Category to set user's age -->
+
+    <!-- User age -->
     <category>
         <pattern>I AM * YEARS OLD</pattern>
         <template>
-            <set name="age"><star/></set>
+            <think><set name="age"><star/></set></think>
             Got it! You are <star/> years old.
         </template>
     </category>
 
-    <!-- Category to retrieve user's age -->
     <category>
         <pattern>WHAT IS MY AGE</pattern>
         <template>
-            You are <get name="age"/> years old.
-        </template>
-    </category>
-    
-    <!-- Category to set user's favorite color -->
-    <category>
-        <pattern>MY FAVORITE COLOR IS *</pattern>
-        <template>
-            <set name="favoritecolor"><star/></set>
-            Cool! Your favorite color is <star/>.
+            <condition name="age">
+                <li value="">I don't know your age yet. Please tell me: "I am ... years old."</li>
+                <li>You are <get name="age"/> years old.</li>
+            </condition>
         </template>
     </category>
 
-    <!-- Category to retrieve user's favorite color -->
+    <!-- Favorite color -->
+    <category>
+        <pattern>MY FAVORITE COLOR IS *</pattern>
+        <template>
+            <think><set name="favoritecolor"><star/></set></think>
+            <random>
+                <li>Cool! Your favorite color is <star/>.</li>
+                <li>Nice choice! <star/> is a beautiful color.</li>
+                <li>Awesome! I'll remember that your favorite color is <star/>.</li>
+            </random>
+        </template>
+    </category>
+
     <category>
         <pattern>WHAT IS MY FAVORITE COLOR</pattern>
         <template>
-            Your favorite color is <get name="favoritecolor"/>.
+            <condition name="favoritecolor">
+                <li value="">I don't know your favorite color yet. Please tell me: "My favorite color is ..."</li>
+                <li>Your favorite color is <get name="favoritecolor"/>.</li>
+            </condition>
         </template>
     </category>
-    
-    <!-- Category to set user's hobby -->
+
+    <!-- Hobby -->
     <category>
         <pattern>MY HOBBY IS *</pattern>
         <template>
-            <set name="hobby"><star/></set>
+            <think><set name="hobby"><star/></set></think>
             That's interesting! Your hobby is <star/>.
         </template>
     </category>
 
-    <!-- Category to retrieve user's hobby -->
     <category>
         <pattern>WHAT IS MY HOBBY</pattern>
         <template>
-            Your hobby is <get name="hobby"/>.
+            <condition name="hobby">
+                <li value="">I don't know your hobby yet. Please tell me: "My hobby is ..."</li>
+                <li>Your hobby is <get name="hobby"/>.</li>
+            </condition>
         </template>
     </category>
-    
-    <!-- Category to set user's favorite food -->
+
+    <!-- Favorite food -->
     <category>
         <pattern>MY FAVORITE FOOD IS *</pattern>
         <template>
-            <set name="favoritefood"><star/></set>
+            <think><set name="favoritefood"><star/></set></think>
             Yum! Your favorite food is <star/>.
         </template>
     </category>
 
-    <!-- Category to retrieve user's favorite food -->
     <category>
         <pattern>WHAT IS MY FAVORITE FOOD</pattern>
         <template>
-            Your favorite food is <get name="favoritefood"/>.
+            <condition name="favoritefood">
+                <li value="">I don't know your favorite food yet. Please tell me: "My favorite food is ..."</li>
+                <li>Your favorite food is <get name="favoritefood"/>.</li>
+            </condition>
         </template>
     </category>
-    
-    <!-- Category to set user's pet's name -->
+
+    <!-- Pet's name -->
     <category>
         <pattern>MY PET'S NAME IS *</pattern>
         <template>
-            <set name="petname"><star/></set>
+            <think><set name="petname"><star/></set></think>
             That's a lovely name! Your pet's name is <star/>.
         </template>
     </category>
 
-    <!-- Category to retrieve user's pet's name -->
     <category>
         <pattern>WHAT IS MY PET'S NAME</pattern>
         <template>
-            Your pet's name is <get name="petname"/>.
+            <condition name="petname">
+                <li value="">I don't know your pet's name yet. Please tell me: "My pet's name is ..."</li>
+                <li>Your pet's name is <get name="petname"/>.</li>
+            </condition>
         </template>
     </category>
 
